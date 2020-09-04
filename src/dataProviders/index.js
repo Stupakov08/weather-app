@@ -1,5 +1,5 @@
-import weatherProvider from './weatherProvider';
+import locationProvider from './locationProvider';
 
 export default {
-	weather: weatherProvider,
+	location: locationProvider,
 };

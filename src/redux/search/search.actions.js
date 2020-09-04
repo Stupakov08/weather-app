@@ -1,15 +1,16 @@
-import weatherTypes from './weather.types';
+import searchTypes from './search.types';
 import dataProvider from '../../dataProviders';
+import { filterFindedLocations } from './search.utils';
 
 export const findLocationStart = () => ({
-	type: weatherTypes.FIND_LOCATION_START,
+	type: searchTypes.FIND_LOCATION_START,
 });
 export const findLocationSuccess = (payload) => ({
-	type: weatherTypes.FIND_LOCATION_SUCCESS,
+	type: searchTypes.FIND_LOCATION_SUCCESS,
 	payload,
 });
 export const findLocationFailure = (payload) => ({
-	type: weatherTypes.FIND_LOCATION_FAILURE,
+	type: searchTypes.FIND_LOCATION_FAILURE,
 	payload,
 });
 
@@ -17,8 +18,9 @@ export const findLocation = (searchString) => {
 	return async (dispatch) => {
 		dispatch(findLocationStart());
 
-		dataProvider.weather
-			.findLocation(searchString)
+		dataProvider.location
+			.find(searchString)
+			.then(filterFindedLocations)
 			.then((res) => dispatch(findLocationSuccess(res)))
 			.catch((error) => dispatch(findLocationFailure(error)));
 	};

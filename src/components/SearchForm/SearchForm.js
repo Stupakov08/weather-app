@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { findLocation } from '../../redux/weather/weather.actions';
+import { findLocation } from '../../redux/search/search.actions';
 
 const SearchForm = ({ findLocation }) => {
 	const [search, setSearch] = useState('');
