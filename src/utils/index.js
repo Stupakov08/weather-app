@@ -22,3 +22,15 @@ export const Fetch = (url, options) => {
 		...options,
 	}).then(parseStatus);
 };
+
+export const debounce = (fn, ms, immediate = false) => {
+	let timeout = null;
+	return function () {
+		const next = () => fn.apply(this, arguments);
+
+		clearTimeout(timeout);
+		timeout = setTimeout(next, ms);
+
+		immediate && !ms && next();
+	};
+};

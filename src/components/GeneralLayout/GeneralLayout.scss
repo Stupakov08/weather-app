@@ -1,0 +1,12 @@
+.l-general {
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	&__sidebar {
+		width: 360px;
+	}
+	&__main {
+		flex-grow: 1;
+	}
+}

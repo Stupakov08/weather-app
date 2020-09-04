@@ -1,0 +1,23 @@
+@import '../../variables.scss';
+
+.c-search {
+	font-size: $controls-font-size;
+
+	&__devider {
+		height: 28px;
+		margin: 4px;
+		width: 1px;
+		flex-shrink: 0;
+		background-color: $border-color;
+	}
+
+	&__suggest {
+		width: calc(100% + 8px);
+		border-top: 1px solid $border-color;
+		margin-top: 4px;
+		margin-left: -4px;
+		margin-right: -4px;
+		padding: 2px 4px;
+		text-align: center;
+	}
+}

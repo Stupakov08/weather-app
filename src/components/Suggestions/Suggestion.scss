@@ -1,0 +1,41 @@
+@import '../../variables.scss';
+.c-suggestion {
+	&__item {
+		width: 100%;
+		display: flex;
+		cursor: pointer;
+
+		&:hover {
+			background-color: $hover-bg-color;
+		}
+	}
+	&__img {
+		flex-grow: 0;
+		max-height: 50px;
+	}
+	&__description {
+		flex-grow: 1;
+		text-align: left;
+		padding: 5px 10px;
+	}
+	&__city {
+		font-weight: 500;
+	}
+	&__weather {
+		font-size: 0.9em;
+		padding-top: 2px;
+	}
+	&__temp {
+		display: inline-block;
+		padding: 2px 3px;
+		border-radius: 1em;
+		line-height: 1em;
+		background-color: $temp-bg-color;
+		color: $secondary-font-color;
+		font-size: 0.8em;
+	}
+	&__desc {
+		padding-left: 10px;
+		opacity: 0.7;
+	}
+}

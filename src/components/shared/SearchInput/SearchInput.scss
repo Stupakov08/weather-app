@@ -1,0 +1,14 @@
+.c-inputbox {
+	flex: 1;
+	padding-left: 15px;
+
+	&__text {
+		width: 100%;
+		border: 0;
+		margin: 0;
+		display: block;
+		padding: 6px 0;
+		font-size: inherit;
+		outline: none;
+	}
+}

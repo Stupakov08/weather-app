@@ -1,9 +1,9 @@
 import React from 'react';
-import SearchForm from './components/SearchForm/SearchForm';
+import GeneralLayout from './components/GeneralLayout/GeneralLayout';
 function App() {
 	return (
-		<div>
-			<SearchForm />
+		<div className='site'>
+			<GeneralLayout />
 		</div>
 	);
 }
