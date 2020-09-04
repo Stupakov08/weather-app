@@ -18,10 +18,14 @@ export const findLocation = (searchString) => {
 	return async (dispatch) => {
 		dispatch(findLocationStart());
 
-		dataProvider.location
+		dataProvider.weather
 			.find(searchString)
 			.then(filterFindedLocations)
 			.then((res) => dispatch(findLocationSuccess(res)))
 			.catch((error) => dispatch(findLocationFailure(error)));
 	};
 };
+
+export const clearLocations = () => ({
+	type: searchTypes.CLEAR_LOCATIONS,
+});

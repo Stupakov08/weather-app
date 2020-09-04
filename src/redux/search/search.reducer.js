@@ -28,6 +28,11 @@ const searchReducer = (state = INITIAL_STATE, action) => {
 				loading: false,
 				error: action.payload,
 			};
+		case searchTypes.CLEAR_LOCATIONS:
+			return {
+				...state,
+				locations: [],
+			};
 		default:
 			return state;
 	}

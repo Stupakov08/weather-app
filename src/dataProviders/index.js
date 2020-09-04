@@ -1,5 +1,7 @@
-import locationProvider from './locationProvider';
+import weatherProvider from './weatherProvider';
+import geoProvider from './geoProvider';
 
 export default {
-	location: locationProvider,
+	weather: weatherProvider,
+	geo: geoProvider,
 };

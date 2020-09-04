@@ -1,9 +1,13 @@
 import React from 'react';
 
-const WeatherIcon = ({ iconId }) => {
+const WeatherIcon = ({ iconId, ...rest }) => {
 	return (
 		iconId && (
-			<img src={`http://openweathermap.org/img/w/${iconId}.png`} alt={iconId} />
+			<img
+				src={`http://openweathermap.org/img/w/${iconId}.png`}
+				alt={iconId}
+				{...rest}
+			/>
 		)
 	);
 };

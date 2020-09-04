@@ -1,5 +1,7 @@
 This project is Wheather App test project.
 
+Before start define `REACT_APP_WEATHER_API_KEY` in `.env` file in root directory.
+
 ## Available Scripts
 
 In the project directory, you can run:

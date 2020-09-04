@@ -2,15 +2,22 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
 import SearchInput from '../shared/SearchInput/SearchInput';
 import ImageButton from '../shared/ImageButton/ImageButton';
-import { findLocation } from '../../redux/search/search.actions';
+import {
+	findLocation,
+	clearLocations,
+} from '../../redux/search/search.actions';
+import { getWeather } from '../../redux/details/details.actions';
 import Suggestion from '../Suggestions/Suggestions';
 import { ReactComponent as Search } from '../../assets/search.svg';
 import { ReactComponent as Location } from '../../assets/location.svg';
 import { debounce } from '../../utils/index';
+import dataProvider from '../../dataProviders';
 import './SearchForm.scss';
 
-const SearchForm = ({ findLocation }) => {
+const SearchForm = ({ findLocation, clearLocations, getWeather }) => {
 	const [search, setSearch] = useState('');
+
+	const inputChange = (e) => setSearch(e.target.value);
 
 	const debouncedCall = useCallback(
 		debounce((s) => s.length > 2 && findLocation(s), 500),
@@ -22,11 +29,19 @@ const SearchForm = ({ findLocation }) => {
 		debouncedCall(search);
 	};
 
-	const inputChange = (e) => setSearch(e.target.value);
+	const useCurrentLocationHandler = () => {
+		dataProvider.geo
+			.getCurrentLocation()
+			.then(getWeather)
+			.catch((res) => {
+				alert(res.message);
+			});
+	};
 
 	useEffect(() => {
 		debouncedCall(search);
-	}, [search, debouncedCall]);
+		if (!search) clearLocations();
+	}, [search, debouncedCall, clearLocations]);
 
 	return (
 		<form action='get' className='c-paper c-search' onSubmit={formSubmit}>
@@ -35,7 +50,7 @@ const SearchForm = ({ findLocation }) => {
 				<Search />
 			</ImageButton>
 			<div className='c-search__devider'></div>
-			<ImageButton title='Use my location'>
+			<ImageButton title='Use my location' onClick={useCurrentLocationHandler}>
 				<Location />
 			</ImageButton>
 			<Suggestion />
@@ -45,6 +60,11 @@ const SearchForm = ({ findLocation }) => {
 
 const mapDispatchToProps = (dispatch) => ({
 	findLocation: (s) => dispatch(findLocation(s)),
+	clearLocations: () => dispatch(clearLocations()),
+	getWeather: (query) => {
+		dispatch(getWeather(query));
+		dispatch(clearLocations());
+	},
 });
 
 export default connect(null, mapDispatchToProps)(SearchForm);
