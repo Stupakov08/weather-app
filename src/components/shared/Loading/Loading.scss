@@ -9,13 +9,13 @@
 		box-sizing: border-box;
 		display: block;
 		position: absolute;
-		width: 32px;
-		height: 32px;
-		margin: 5px;
-		border: 5px solid $loading-color;
+		width: 80%;
+		height: 80%;
+		margin: 15%;
+		border: 5px solid $secondary-loading-color;
 		border-radius: 50%;
 		animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-		border-color: $loading-color transparent transparent transparent;
+		border-color: $secondary-loading-color transparent transparent transparent;
 
 		&:nth-child(1) {
 			animation-delay: -0.45s;
@@ -25,6 +25,13 @@
 		}
 		&:nth-child(3) {
 			animation-delay: -0.15s;
+		}
+	}
+
+	&--primary {
+		div {
+			border: 5px solid $primary-loading-color;
+			border-color: $primary-loading-color transparent transparent transparent;
 		}
 	}
 }

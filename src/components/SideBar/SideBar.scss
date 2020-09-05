@@ -5,4 +5,8 @@
 	height: 100vh;
 	padding: 10px;
 	background-color: $secondary-bg-color;
+
+	@media screen and (max-width: 639px) {
+		height: auto;
+	}
 }

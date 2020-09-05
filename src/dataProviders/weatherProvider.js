@@ -9,23 +9,19 @@ const weatherProvider = {
 		});
 		return Fetch(url);
 	},
-	get: (query) => {
-		const options = {};
-		if (!query) return Promise.reject();
-
-		if (typeof query == 'object') {
-			const { lat, lon } = query;
-			if (lat && lon) {
-				options.lat = lat;
-				options.lon = lon;
-			}
-		} else {
-			options.id = query;
-		}
-
+	get: (options) => {
 		const url = wheatherUrl({
-			...options,
 			units: 'metric',
+			...options,
+		});
+		return Fetch(url);
+	},
+	getDaily: (options) => {
+		const url = wheatherUrl({
+			units: 'metric',
+			action: 'onecall',
+			exclude: 'current,minutely,hourly',
+			...options,
 		});
 		return Fetch(url);
 	},

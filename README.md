@@ -1,6 +1,7 @@
 This project is Wheather App test project.
 
 Before start define `REACT_APP_WEATHER_API_KEY` in `.env` file in root directory.
+You can get own api key on [https://openweathermap.org/](https://openweathermap.org/).
 
 ## Available Scripts
 

@@ -61,8 +61,8 @@ const SearchForm = ({ findLocation, clearLocations, getWeather }) => {
 const mapDispatchToProps = (dispatch) => ({
 	findLocation: (s) => dispatch(findLocation(s)),
 	clearLocations: () => dispatch(clearLocations()),
-	getWeather: (query) => {
-		dispatch(getWeather(query));
+	getWeather: (coords) => {
+		dispatch(getWeather(coords));
 		dispatch(clearLocations());
 	},
 });
