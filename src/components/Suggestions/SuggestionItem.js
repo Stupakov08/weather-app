@@ -1,20 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getWeather } from '../../redux/details/details.actions';
 import { clearLocations } from '../../redux/search/search.actions';
 import WeatherIcon from '../shared/WeatherIcon';
 import CountryIcon from '../shared/CountryIcon';
+import { Link } from 'react-router-dom';
 
 const SuggestionItem = ({
-	item: { weather, id, main, name, sys, coord },
-	getWeather,
+	item: { weather, main, name, sys, coord },
+	clearLocations,
 }) => {
 	const temp = Math.round(main.temp);
-	const itemClickHandler = () => {
-		getWeather(coord);
-	};
+
 	return (
-		<div className='c-suggestion__item' onClick={itemClickHandler}>
+		<Link
+			className='c-suggestion__item'
+			to={`/${coord.lon}/${coord.lat}`}
+			onClick={clearLocations}
+		>
 			<WeatherIcon iconId={weather[0].icon} className='c-suggestion__img' />
 			<div className='c-suggestion__description'>
 				<div className='c-suggestion__city'>
@@ -31,13 +33,12 @@ const SuggestionItem = ({
 					<span className='c-suggestion__desc'>{weather[0].description}</span>
 				</div>
 			</div>
-		</div>
+		</Link>
 	);
 };
+
 const mapDispatchToProps = (dispatch) => ({
-	getWeather: (coords) => {
-		dispatch(getWeather(coords));
-		dispatch(clearLocations());
-	},
+	clearLocations: () => dispatch(clearLocations()),
 });
+
 export default connect(null, mapDispatchToProps)(SuggestionItem);

@@ -9,7 +9,7 @@ export const getWeatherSuccess = (payload) => ({
 	payload,
 });
 export const getWeatherFailure = (payload) => ({
-	type: detailsTypes.GET_WEATHER_SUCCESS,
+	type: detailsTypes.GET_WEATHER_FAILURE,
 	payload,
 });
 
@@ -19,16 +19,10 @@ export const getWeather = (coords) => {
 
 		dataProvider.weather
 			.get(coords)
-			.then((res) => dispatch(getWeatherSuccess(res)))
+			.then((res) => {
+				dispatch(getWeatherSuccess(res));
+			})
 			.catch((error) => dispatch(getWeatherFailure(error)));
-	};
-};
-export const getWeatherForCurrentLocation = () => {
-	return async (dispatch) => {
-		dataProvider.geo
-			.getCurrentLocation()
-			.then((coord) => dispatch(getWeather(coord)))
-			.catch((error) => console.log(error.message));
 	};
 };
 
@@ -40,7 +34,7 @@ export const getDailySuccess = (payload) => ({
 	payload,
 });
 export const getDailyFailure = (payload) => ({
-	type: detailsTypes.GET_DAILY_SUCCESS,
+	type: detailsTypes.GET_DAILY_FAILURE,
 	payload,
 });
 

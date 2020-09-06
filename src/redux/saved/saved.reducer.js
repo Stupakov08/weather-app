@@ -2,7 +2,7 @@ import savedTypes from './saved.types';
 import { addLocationToList, deleteLocationFromList } from './saved.utils';
 
 const INITIAL_STATE = {
-	list: null,
+	list: [],
 };
 
 const savedReducer = (state = INITIAL_STATE, action) => {

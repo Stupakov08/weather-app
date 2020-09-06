@@ -5,11 +5,6 @@ import savedReducer from './saved/saved.reducer';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-const detailsPersistConfig = {
-	key: 'detailsWeatherApp',
-	storage,
-	whitelist: ['rehidrationCoord'],
-};
 const savedPersistConfig = {
 	key: 'savedWeatherApp',
 	storage,
@@ -18,7 +13,7 @@ const savedPersistConfig = {
 const rootReducer = combineReducers({
 	search: searchReducer,
 	saved: persistReducer(savedPersistConfig, savedReducer),
-	details: persistReducer(detailsPersistConfig, detailsReducer),
+	details: detailsReducer,
 });
 
 export default rootReducer;

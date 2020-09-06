@@ -1,26 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getWeather } from '../../redux/details/details.actions';
 import { deleteLocation } from '../../redux/saved/saved.actions';
 import CountryIcon from '../shared/CountryIcon';
 import ImageButton from '../shared/ImageButton/ImageButton';
+import { Link } from 'react-router-dom';
 import { ReactComponent as Delete } from '../../assets/bin.svg';
 
 const SavedItem = ({
-	item: { icon, description, id, main, temp, name, country, coord },
-	getWeather,
+	item: { id, temp, name, country, coord },
 	deleteLocation,
 }) => {
-	temp = Math.round(temp);
-	const itemClickHandler = () => {
-		getWeather(coord);
-	};
 	const deleteClickHandler = (e) => {
+		e.preventDefault();
 		e.stopPropagation();
 		deleteLocation(id);
 	};
+
 	return (
-		<div className='c-saved__item' onClick={itemClickHandler}>
+		<Link to={`/${coord.lon}/${coord.lat}`} className='c-saved__item'>
 			<div className='c-saved__description'>
 				<div className='c-saved__city'>
 					{name}, {country}
@@ -38,11 +35,10 @@ const SavedItem = ({
 			>
 				<Delete />
 			</ImageButton>
-		</div>
+		</Link>
 	);
 };
 const mapDispatchToProps = (dispatch) => ({
-	getWeather: (coords) => dispatch(getWeather(coords)),
 	deleteLocation: (id) => dispatch(deleteLocation(id)),
 });
 export default connect(null, mapDispatchToProps)(SavedItem);

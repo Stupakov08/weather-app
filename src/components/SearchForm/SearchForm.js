@@ -6,16 +6,18 @@ import {
 	findLocation,
 	clearLocations,
 } from '../../redux/search/search.actions';
-import { getWeatherForCurrentLocation } from '../../redux/details/details.actions';
 import Suggestion from '../Suggestions/Suggestions';
 import { ReactComponent as Search } from '../../assets/search.svg';
 import { ReactComponent as Location } from '../../assets/location.svg';
 import { debounce } from '../../utils/index';
+import dataProvider from '../../dataProviders/index';
+import { useHistory } from 'react-router-dom';
 import './SearchForm.scss';
 
-const SearchForm = ({ findLocation, clearLocations, useCurrentLocation }) => {
+const SearchForm = ({ findLocation, clearLocations }) => {
 	const [search, setSearch] = useState('');
 	const [touched, setTouched] = useState(false);
+	const history = useHistory();
 
 	const inputChange = (e) => {
 		setSearch(e.target.value);
@@ -24,7 +26,7 @@ const SearchForm = ({ findLocation, clearLocations, useCurrentLocation }) => {
 
 	const debouncedCall = useCallback(
 		debounce((s) => s.length > 2 && findLocation(s), 500),
-		[]
+		[findLocation]
 	);
 
 	const formSubmit = (e) => {
@@ -32,9 +34,16 @@ const SearchForm = ({ findLocation, clearLocations, useCurrentLocation }) => {
 		debouncedCall(search);
 	};
 
+	const useCurrentLocation = () => {
+		dataProvider.geo.getCurrentLocation().then((coord) => {
+			history.push(`/${coord.lon}/${coord.lat}`);
+			clearLocations();
+		});
+	};
+
 	useEffect(() => {
 		debouncedCall(search);
-		if (!search && touched) clearLocations();
+		!search && touched && clearLocations();
 	}, [search, touched, debouncedCall, clearLocations]);
 
 	return (
@@ -55,10 +64,6 @@ const SearchForm = ({ findLocation, clearLocations, useCurrentLocation }) => {
 const mapDispatchToProps = (dispatch) => ({
 	findLocation: (s) => dispatch(findLocation(s)),
 	clearLocations: () => dispatch(clearLocations()),
-	useCurrentLocation: () => {
-		dispatch(getWeatherForCurrentLocation());
-		dispatch(clearLocations());
-	},
 });
 
 export default connect(null, mapDispatchToProps)(SearchForm);
