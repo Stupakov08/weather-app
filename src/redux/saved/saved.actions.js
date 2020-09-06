@@ -5,7 +5,6 @@ export const saveCurrentLocation = (coords) => {
 		const {
 			details: { current },
 		} = getState();
-		debugger;
 		dispatch(saveLocation(current));
 	};
 };

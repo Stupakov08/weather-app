@@ -15,10 +15,10 @@ const Saved = ({ saveLocation, list }) => {
 					<Plus />
 				</ImageButton>
 			</div>
-			{list && (
+			{!!list.length && (
 				<div className='c-paper c-saved__list'>
 					{list.map((i) => (
-						<SavedItem item={i} />
+						<SavedItem key={i.id} item={i} />
 					))}
 				</div>
 			)}

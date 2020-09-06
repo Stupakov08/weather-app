@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import WeatherIcon from '../shared/WeatherIcon';
 import CountryIcon from '../shared/CountryIcon';
 import moment from 'moment';
@@ -59,8 +58,4 @@ const Current = ({ current }) => {
 	);
 };
 
-const mapStateToProps = ({ details }) => ({
-	current: details.current,
-});
-
-export default connect(mapStateToProps)(Current);
+export default Current;

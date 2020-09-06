@@ -1,24 +1,18 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import DailyItem from './DailyItem';
-import { getDaily } from '../../redux/details/details.actions';
 import './Daily.scss';
 
-const Daily = ({ list, current, getDaily }) => {
-	useEffect(() => {
-		current && getDaily(current.coord);
-	}, [current, getDaily]);
-
-	if (!list) return null;
+const Daily = ({ daily }) => {
+	if (!daily) return null;
 
 	return (
 		<div className='c-paper'>
 			<div className='c-daily'>
 				<div className='c-daily__header c-heading'>
-					{list.length}-day Forecast
+					{daily.length}-day Forecast
 				</div>
 				<div className='c-daily__list'>
-					{list.map((item) => (
+					{daily.map((item) => (
 						<DailyItem key={item.dt} item={item} />
 					))}
 				</div>
@@ -27,11 +21,4 @@ const Daily = ({ list, current, getDaily }) => {
 	);
 };
 
-const mapStateToProps = ({ details }) => ({
-	list: details.daily.list,
-	current: details.current,
-});
-const mapDispatchToProps = (dispatch) => ({
-	getDaily: (coord) => dispatch(getDaily(coord)),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Daily);
+export default Daily;
