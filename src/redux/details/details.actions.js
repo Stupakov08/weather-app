@@ -23,6 +23,14 @@ export const getWeather = (coords) => {
 			.catch((error) => dispatch(getWeatherFailure(error)));
 	};
 };
+export const getWeatherForCurrentLocation = () => {
+	return async (dispatch) => {
+		dataProvider.geo
+			.getCurrentLocation()
+			.then((coord) => dispatch(getWeather(coord)))
+			.catch(alert);
+	};
+};
 
 export const getDailyStart = () => ({
 	type: detailsTypes.GET_DAILY_START,

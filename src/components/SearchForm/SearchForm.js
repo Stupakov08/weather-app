@@ -6,18 +6,21 @@ import {
 	findLocation,
 	clearLocations,
 } from '../../redux/search/search.actions';
-import { getWeather } from '../../redux/details/details.actions';
+import { getWeatherForCurrentLocation } from '../../redux/details/details.actions';
 import Suggestion from '../Suggestions/Suggestions';
 import { ReactComponent as Search } from '../../assets/search.svg';
 import { ReactComponent as Location } from '../../assets/location.svg';
 import { debounce } from '../../utils/index';
-import dataProvider from '../../dataProviders';
 import './SearchForm.scss';
 
-const SearchForm = ({ findLocation, clearLocations, getWeather }) => {
+const SearchForm = ({ findLocation, clearLocations, useCurrentLocation }) => {
 	const [search, setSearch] = useState('');
+	const [touched, setTouched] = useState(false);
 
-	const inputChange = (e) => setSearch(e.target.value);
+	const inputChange = (e) => {
+		setSearch(e.target.value);
+		!touched && setTouched(true);
+	};
 
 	const debouncedCall = useCallback(
 		debounce((s) => s.length > 2 && findLocation(s), 500),
@@ -29,19 +32,10 @@ const SearchForm = ({ findLocation, clearLocations, getWeather }) => {
 		debouncedCall(search);
 	};
 
-	const useCurrentLocationHandler = () => {
-		dataProvider.geo
-			.getCurrentLocation()
-			.then(getWeather)
-			.catch((res) => {
-				alert(res.message);
-			});
-	};
-
 	useEffect(() => {
 		debouncedCall(search);
-		if (!search) clearLocations();
-	}, [search, debouncedCall, clearLocations]);
+		if (!search && touched) clearLocations();
+	}, [search, touched, debouncedCall, clearLocations]);
 
 	return (
 		<form action='get' className='c-paper c-search' onSubmit={formSubmit}>
@@ -50,7 +44,7 @@ const SearchForm = ({ findLocation, clearLocations, getWeather }) => {
 				<Search />
 			</ImageButton>
 			<div className='c-search__devider'></div>
-			<ImageButton title='Use my location' onClick={useCurrentLocationHandler}>
+			<ImageButton title='Use my location' onClick={useCurrentLocation}>
 				<Location />
 			</ImageButton>
 			<Suggestion />
@@ -61,8 +55,8 @@ const SearchForm = ({ findLocation, clearLocations, getWeather }) => {
 const mapDispatchToProps = (dispatch) => ({
 	findLocation: (s) => dispatch(findLocation(s)),
 	clearLocations: () => dispatch(clearLocations()),
-	getWeather: (coords) => {
-		dispatch(getWeather(coords));
+	useCurrentLocation: () => {
+		dispatch(getWeatherForCurrentLocation());
 		dispatch(clearLocations());
 	},
 });

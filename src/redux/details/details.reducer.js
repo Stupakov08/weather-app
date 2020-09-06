@@ -1,8 +1,9 @@
 import detailsTypes from './details.types';
-import { getCurrent, getDailyList } from './details.utils';
+import { getCurrent, getDailyList, getCoord } from './details.utils';
 
 const INITIAL_STATE = {
 	current: null,
+	rehidrationCoord: null,
 	loading: false,
 	error: null,
 	daily: {
@@ -24,6 +25,7 @@ const detailsReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				current: getCurrent(action.payload),
+				rehidrationCoord: getCoord(action.payload),
 				loading: false,
 				error: null,
 			};
@@ -31,6 +33,7 @@ const detailsReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				current: null,
+				rehidrationCoord: null,
 				loading: false,
 				error: action.payload,
 			};

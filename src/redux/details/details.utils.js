@@ -30,6 +30,7 @@ export const getCurrent = (current) => {
 		main,
 	};
 };
+export const getCoord = ({ coord }) => coord;
 export const getDailyList = (list) =>
 	list.daily &&
 	list.daily.map((item) => {
