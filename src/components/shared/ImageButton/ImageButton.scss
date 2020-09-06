@@ -1,0 +1,15 @@
+.c-image-button {
+	padding: 10px;
+	border-radius: 50%;
+	cursor: pointer;
+	border: none;
+	background: transparent;
+	outline: none;
+
+	& > svg {
+		display: block;
+		width: 1.2em;
+		height: 1.2em;
+		fill: rgba(0, 0, 0, 0.54);
+	}
+}
