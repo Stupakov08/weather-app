@@ -14,7 +14,9 @@ const Daily = ({ list, current, getDaily }) => {
 	return (
 		<div className='c-paper'>
 			<div className='c-daily'>
-				<div className='c-daily__header'>{list.length}-day Forecast</div>
+				<div className='c-daily__header c-heading'>
+					{list.length}-day Forecast
+				</div>
 				<div className='c-daily__list'>
 					{list.map((item) => (
 						<DailyItem key={item.dt} item={item} />

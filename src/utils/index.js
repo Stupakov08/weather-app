@@ -34,7 +34,3 @@ export const debounce = (fn, ms, immediate = false) => {
 		immediate && !ms && next();
 	};
 };
-export const displayTimeStamp = (dt) => {
-	const date = new Date(dt * 1000);
-	return date.toLocaleString();
-};

@@ -28,7 +28,7 @@ export const getWeatherForCurrentLocation = () => {
 		dataProvider.geo
 			.getCurrentLocation()
 			.then((coord) => dispatch(getWeather(coord)))
-			.catch(alert);
+			.catch((error) => console.log(error.message));
 	};
 };
 

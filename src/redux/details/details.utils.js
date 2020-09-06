@@ -2,6 +2,7 @@ export const getCurrent = (current) => {
 	const {
 		name,
 		dt,
+		id,
 		coord,
 		visibility,
 		main: { feels_like, humidity, pressure, temp, temp_max, temp_min },
@@ -13,6 +14,7 @@ export const getCurrent = (current) => {
 	return {
 		name,
 		dt,
+		id,
 		coord,
 		visibility,
 		feels_like,
